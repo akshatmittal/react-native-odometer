@@ -2,6 +2,15 @@ import React, { useRef, useEffect, useState, Children } from "react";
 import { StyleSheet, Text, View, TextStyle, TextProps } from "react-native";
 import Animated, { Easing } from "react-native-reanimated";
 
+(() => {
+  const t = 1E7;
+  if (t.toLocaleString() === t.toString()) {
+    try {
+      require('number-to-locale-string-polyfill');
+    } catch { };
+  }
+})();
+
 const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
@@ -47,6 +56,7 @@ interface Props {
   textProps?: TextProps;
   additionalDisplayItems?: string[];
   children: React.ReactNode;
+  locale?: string;
 }
 
 interface TickProps {
@@ -60,7 +70,7 @@ interface TickProps {
 
 type MeasureMap = { [key: string]: { width: number; height: number } };
 
-export const Tick: React.FC<{ children: string; rotateItems: string[] }> = ({ ...props }) => {
+export const Fragment: React.FC<{ children: string; rotateItems: string[] }> = ({ ...props }) => {
   //@ts-ignore
   return <TickItem {...props} />;
 };
@@ -98,12 +108,12 @@ const TickItem: React.FC<TickProps> = ({
       Animated.timing(stylePos, {
         toValue: position,
         duration,
-        easing: Easing.ease,
+        easing: Easing.sin,
       }).start();
       Animated.timing(widthAnim, {
         toValue: measurement.width,
         duration: 25,
-        easing: Easing.ease,
+        easing: Easing.sin,
       }).start();
     }
   }, [position, measurement]);
@@ -122,7 +132,7 @@ const TickItem: React.FC<TickProps> = ({
         }}
       >
         {rotateItems.map(v => (
-          <Text key={v} {...textProps} style={[textStyle, { height: measurement.height }]}>
+          <Text key={v} {...textProps} style={[textStyle, { height: measurement.height, fontVariant: ["tabular-nums"] }]}>
             {v}
           </Text>
         ))}
@@ -131,7 +141,7 @@ const TickItem: React.FC<TickProps> = ({
   );
 };
 
-const Ticker: React.FC<Props> = ({ duration = 250, textStyle, textProps, children }) => {
+const Odometer: React.FC<Props> = ({ duration = 500, textStyle, textProps, children, locale }) => {
   const [measured, setMeasured] = useState<boolean>(false);
 
   const measureMap = useRef<MeasureMap>({});
@@ -166,7 +176,8 @@ const Ticker: React.FC<Props> = ({ duration = 250, textStyle, textProps, childre
       {measured === true &&
         Children.map(children, child => {
           if (typeof child === "string" || typeof child === "number") {
-            return splitText(`${child}`).map((text, index) => {
+            const text = (typeof child === "number" && locale !== "") ? child.toLocaleString(locale) : child.toString();
+            return splitText(text).map((text, index) => {
               let items = isNumber(text) ? numberItems : [text];
               return (
                 <TickItem
@@ -207,8 +218,9 @@ const Ticker: React.FC<Props> = ({ duration = 250, textStyle, textProps, childre
   );
 };
 
-Ticker.defaultProps = {
-  duration: 250,
+Odometer.defaultProps = {
+  duration: 500,
+  locale: ""
 };
 
-export default Ticker;
+export default Odometer;
