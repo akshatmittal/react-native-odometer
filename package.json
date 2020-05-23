@@ -1,0 +1,34 @@
+{
+  "name": "react-native-odometer",
+  "version": "1.0.1",
+  "description": "Odometer for React Native",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/akshatmittal/react-native-odometer.git"
+  },
+  "keywords": [
+    "react-native",
+    "odometer",
+    "react",
+    "ticker"
+  ],
+  "author": "Akshat Mittal (akshatmittal)",
+  "license": "ISC",
+  "dependencies": {
+    "react-native-reanimated": "^1.4.0"
+  },
+  "peerDependencies": {
+    "react": "^16.9.0",
+    "react-native": "^0.61.5"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.11",
+    "@types/react-native": "^0.60.22",
+    "typescript": "^3.7.2"
+  }
+}
