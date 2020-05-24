@@ -1,14 +1,15 @@
 # React Native Odometer
 
-Odometer for React Native, supports both numbers, localized numbers and strings.
+Odometer for React Native, supports numbers, localization and strings.
 
 # Features
 
 - Animations with `react-native-reanimated`.
-- Custom animation `duration`.
+- Custom animation duration via `duration` prop.
 - Automatically measures all widths and heights of items and adjusts accordingly!
 - Supply a `children` element with the number or string.
 - Numbers can be formatted to custom locale via `locale` prop.
+- Uses `tabular-nums` fontVariant to avoid layout shifting.
 
 # Install
 
@@ -24,7 +25,7 @@ npm i number-to-locale-string-polyfill
 
 # Example
 
-```js
+```jsx
 import Odometer from "react-native-odometer";
 ```
 
