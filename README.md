@@ -6,7 +6,7 @@ Odometer for React Native, supports numbers, localization and strings.
 
 - Animations with `react-native-reanimated`.
 - Custom animation duration via `duration` prop.
-- Automatically measures all widths and heights of items and adjusts accordingly!
+- Automatically measures all widths and heights of items and adjusts accordingly.
 - Supply a `children` element with the number or string.
 - Numbers can be formatted to custom locale via `locale` prop.
 - Uses `tabular-nums` fontVariant to avoid layout shifting.

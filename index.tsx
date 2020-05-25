@@ -108,12 +108,12 @@ const TickItem: React.FC<TickProps> = ({
       Animated.timing(stylePos, {
         toValue: position,
         duration,
-        easing: Easing.sin,
+        easing: Easing.ease,
       }).start();
       Animated.timing(widthAnim, {
         toValue: measurement.width,
         duration: 25,
-        easing: Easing.sin,
+        easing: Easing.ease,
       }).start();
     }
   }, [position, measurement]);
@@ -176,7 +176,7 @@ const Odometer: React.FC<Props> = ({ duration = 500, textStyle, textProps, child
       {measured === true &&
         Children.map(children, child => {
           if (typeof child === "string" || typeof child === "number") {
-            const text = (typeof child === "number" && locale !== "") ? child.toLocaleString(locale) : child.toString();
+            const text = (typeof child === "number" && locale?.trim() !== "") ? child.toLocaleString(locale) : child.toString();
             return splitText(text).map((text, index) => {
               let items = isNumber(text) ? numberItems : [text];
               return (
