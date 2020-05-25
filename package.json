@@ -1,6 +1,6 @@
 {
   "name": "react-native-odometer",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Odometer for React Native",
   "main": "index.js",
   "scripts": {
